@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livraria Aurora</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- TELA DE LOGIN -->
+  <main class="container tela-login" id="telaLogin">
+
+    <section class="apresentacao">
+      <div class="logo">📚 Livraria Aurora</div>
+
+      <h1>Histórias que iluminam novos caminhos.</h1>
+
+      <p>
+        Entre em sua conta para continuar descobrindo livros,
+        autores e mundos incríveis.
+      </p>
+    </section>
+
+    <section class="login-area">
+      <h2 id="tituloFormulario">Bem-vindo de volta!</h2>
+      <p class="subtitulo" id="subtituloFormulario">
+        Acesse sua conta para continuar.
+      </p>
+
+      <form id="formularioLogin">
+        <div class="campo campo-nome oculto" id="campoNome">
+          <label for="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            placeholder="Digite seu nome"
+          >
+        </div>
+        
+        <div class="campo campo-nome oculto" id="campoSobrenome">
+          <label for="sobrenome">Sobrenome</label>
+          <input
+            type="text"
+            id="sobrenome"
+            placeholder="Digite seu sobrenome"
+          >
+        </div>
+        
+        <div class="campo campo-nome oculto" id="campoTelefone">
+          <label for="telefone">Telefone</label>
+          <input
+            type="tel"
+            id="telefone"
+            placeholder="(00) 00000-0000"
+          >
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Digite seu e-mail"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite sua senha"
+            required
+          >
+        </div>
+
+        <div class="opcoes">
+          <label class="lembrar">
+            <input type="checkbox">
+            Lembrar de mim
+          </label>
+
+          <a href="#" class="esqueceu" id="linkEsqueci">
+            Esqueceu a senha?
+          </a>
+        </div>
+
+        <button class="botao" type="submit" id="botaoFormulario">
+          Entrar
+        </button>
+
+        <div class="mensagem" id="mensagem"></div>
+      </form>
+
+      <p class="cadastro">
+        <span id="textoCadastro">Ainda não possui uma conta?</span>
+        <a href="#" id="alternarCadastro">Criar cadastro</a>
+      </p>
+    </section>
+  </main>
+
+
+  <!-- PÁGINA PRINCIPAL DA LOJA -->
+  <div class="site-loja oculto" id="siteLoja">
+
+    <div class="faixa-promocional">
+      🚚 Frete grátis nas compras acima de R$ 149,90
+      <span>Confira nossas ofertas especiais!</span>
+    </div>
+
+    <header class="cabecalho">
+
+      <div class="topo-cabecalho">
+
+        <a href="#" class="logo-site" data-secao="inicio">
+          📚 <span>Livraria Aurora</span>
+        </a>
+
+        <form class="barra-pesquisa" id="formPesquisa">
+          <input
+            type="search"
+            id="campoPesquisa"
+            placeholder="O que você deseja ler hoje?"
+          >
+          <button type="submit">🔍</button>
+        </form>
+
+        <div class="acoes-cabecalho">
+          <a href="#" data-secao="minha-conta">
+            ⚙️<small>Configurações</small>
+          </a>
+
+          <a href="#" data-secao="minha-conta">
+            👤<small id="nomeUsuarioCabecalho">Minha conta</small>
+          </a>
+
+          <a href="#" data-secao="minhas-listas">
+            ❤️<small>Minhas listas</small>
+          </a>
+
+          <a href="#" class="carrinho-link" data-secao="carrinho">
+            🛒
+            <span class="contador-carrinho" id="contadorCarrinho">0</span>
+            <small>Carrinho</small>
+          </a>
+        </div>
+      </div>
+
+      <nav class="menu-principal">
+        <a href="#" data-secao="inicio">Início</a>
+        <a href="#" data-secao="livros">Livros</a>
+        <a href="#" data-secao="categorias">Categorias</a>
+        <a href="#" data-secao="ofertas">Ofertas do dia</a>
+        <a href="#" data-secao="mais-vendidos">Mais vendidos</a>
+        <a href="#" data-secao="novidades">Lançamentos</a>
+        <a href="#" data-secao="atendimento">Atendimento</a>
+        <a href="#" data-secao="meus-pedidos">Meus pedidos</a>
+      </nav>
+    </header>
+
+
+    <main class="conteudo-principal">
+
+      <!-- INÍCIO -->
+      <section class="pagina ativa" id="inicio">
+
+        <div class="banner-principal">
+          <div>
+            <span class="etiqueta-banner">CLUBE DOS LEITORES</span>
+            <h1>Todo livro abre uma nova porta.</h1>
+            <p>
+              Encontre histórias para transformar seus dias,
+              ampliar seus horizontes e despertar sua imaginação.
+            </p>
+            <button class="botao-banner" data-secao="livros">
+              Explorar livros
+            </button>
+          </div>
+
+          <div class="ilustracao-livros">
+            📚
+          </div>
+        </div>
+
+        <section class="secao">
+          <div class="titulo-secao">
+            <div>
+              <span class="mini-titulo">ESCOLHAS DA AURORA</span>
+              <h2>Destaques para você</h2>
+            </div>
+            <a href="#" data-secao="livros">Ver todos →</a>
+          </div>
+
+          <div class="grade-livros" id="gradeDestaques"></div>
+        </section>
+
+        <section class="categorias-destaque">
+          <div class="titulo-secao">
+            <div>
+              <span class="mini-titulo">EXPLORE POR TEMA</span>
+              <h2>Encontre seu próximo universo</h2>
+            </div>
+          </div>
+
+          <div class="grade-categorias">
+            <button data-categoria="Romance">💌 Romance</button>
+            <button data-categoria="Fantasia">🧙 Fantasia</button>
+            <button data-categoria="Suspense">🕵️ Suspense</button>
+            <button data-categoria="Desenvolvimento">🌱 Desenvolvimento</button>
+            <button data-categoria="Infantil">🧸 Infantil</button>
+            <button data-categoria="Clássicos">🏛️ Clássicos</button>
+          </div>
+        </section>
+
+        <section class="newsletter">
+          <div>
+            <span class="mini-titulo">CLUBE AURORA</span>
+            <h2>Receba novidades literárias</h2>
+            <p>Ofertas, lançamentos e recomendações direto no seu e-mail.</p>
+          </div>
+
+          <form id="formNewsletter">
+            <input type="email" placeholder="Seu melhor e-mail" required>
+            <button class="botao" type="submit">Quero receber</button>
+          </form>
+        </section>
+      </section>
+
+
+      <!-- LIVROS -->
+      <section class="pagina" id="livros">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">NOSSO CATÁLOGO</span>
+          <h1>Todos os livros</h1>
+          <p>Escolha uma nova história para levar com você.</p>
+        </div>
+
+        <div class="filtros-livros">
+          <button class="filtro ativo" data-filtro="todos">Todos</button>
+          <button class="filtro" data-filtro="Romance">Romance</button>
+          <button class="filtro" data-filtro="Fantasia">Fantasia</button>
+          <button class="filtro" data-filtro="Suspense">Suspense</button>
+          <button class="filtro" data-filtro="Desenvolvimento">Desenvolvimento</button>
+          <button class="filtro" data-filtro="Infantil">Infantil</button>
+        </div>
+
+        <div class="grade-livros" id="gradeTodosLivros"></div>
+      </section>
+
+
+      <!-- CATEGORIAS -->
+      <section class="pagina" id="categorias">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">NAVEGUE POR GÊNERO</span>
+          <h1>Categorias</h1>
+          <p>Histórias para todos os gostos e momentos.</p>
+        </div>
+
+        <div class="grade-categorias grande">
+          <button data-categoria="Romance">💌 Romance</button>
+          <button data-categoria="Fantasia">🧙 Fantasia</button>
+          <button data-categoria="Suspense">🕵️ Suspense</button>
+          <button data-categoria="Desenvolvimento">🌱 Desenvolvimento</button>
+          <button data-categoria="Infantil">🧸 Infantil</button>
+          <button data-categoria="Clássicos">🏛️ Clássicos</button>
+          <button data-categoria="Biografia">✍️ Biografias</button>
+          <button data-categoria="História">🌎 História</button>
+        </div>
+      </section>
+
+
+      <!-- OFERTAS -->
+      <section class="pagina" id="ofertas">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">OPORTUNIDADES DO DIA</span>
+          <h1>Ofertas especiais</h1>
+          <p>Livros incríveis com preços que cabem no seu bolso.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeOfertas"></div>
+      </section>
+
+
+      <!-- MAIS VENDIDOS -->
+      <section class="pagina" id="mais-vendidos">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">PREFERIDOS DOS LEITORES</span>
+          <h1>Mais vendidos</h1>
+          <p>As histórias que estão conquistando todo mundo.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeMaisVendidos"></div>
+      </section>
+
+
+      <!-- LANÇAMENTOS -->
+      <section class="pagina" id="novidades">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ACABARAM DE CHEGAR</span>
+          <h1>Lançamentos</h1>
+          <p>Descubra os livros mais recentes da Livraria Aurora.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeLancamentos"></div>
+      </section>
+
+
+      <!-- LISTAS -->
+      <section class="pagina" id="minhas-listas">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SEUS FAVORITOS</span>
+          <h1>Minhas listas</h1>
+          <p>Salve os livros que você deseja ler depois.</p>
+        </div>
+
+        <div class="lista-vazia" id="listaFavoritos">
+          <span>❤️</span>
+          <h2>Sua lista ainda está vazia</h2>
+          <p>Clique no coração dos livros para adicioná-los aos favoritos.</p>
+          <button class="botao" data-secao="livros">Encontrar livros</button>
+        </div>
+      </section>
+
+
+      <!-- PEDIDOS -->
+      <section class="pagina" id="meus-pedidos">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ACOMPANHE SUAS COMPRAS</span>
+          <h1>Meus pedidos</h1>
+          <p>Consulte seus pedidos e acompanhe suas entregas.</p>
+        </div>
+
+        <div class="lista-vazia">
+          <span>📦</span>
+          <h2>Você ainda não fez nenhum pedido</h2>
+          <p>Quando realizar uma compra, ela aparecerá aqui.</p>
+          <button class="botao" data-secao="livros">Começar a comprar</button>
+        </div>
+      </section>
+
+
+      <!-- CONTA -->
+      <section class="pagina" id="minha-conta">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SEU PERFIL</span>
+          <h1>Minha conta</h1>
+          <p>Gerencie seus dados e preferências.</p>
+        </div>
+
+        <div class="painel-conta">
+          <div class="avatar" id="avatarUsuario">U</div>
+          <div>
+            <h2 id="nomeUsuarioConta">Usuário</h2>
+            <p id="emailUsuarioConta">usuario@email.com</p>
+            <p id="telefoneUsuarioConta"></p>
+          </div>
+        </div>
+
+        <div class="opcoes-conta">
+          <button>✏️ Editar dados pessoais</button>
+          <button>🔒 Alterar senha</button>
+          <button>📍 Endereços de entrega</button>
+          <button>💳 Formas de pagamento</button>
+          <button id="botaoSair">🚪 Sair da conta</button>
+        </div>
+      </section>
+
+
+      <!-- CARRINHO -->
+      <section class="pagina" id="carrinho">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SUAS ESCOLHAS</span>
+          <h1>Meu carrinho</h1>
+          <p>Revise seus livros antes de finalizar a compra.</p>
+        </div>
+
+        <div id="conteudoCarrinho"></div>
+      </section>
+
+
+      <!-- ATENDIMENTO -->
+      <section class="pagina" id="atendimento">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ESTAMOS AQUI PARA AJUDAR</span>
+          <h1>Atendimento</h1>
+          <p>Conte com a equipe Aurora para tirar suas dúvidas.</p>
+        </div>
+
+        <div class="cards-atendimento">
+          <div>
+            <span>💬</span>
+            <h3>Fale conosco</h3>
+            <p>Entre em contato pelo nosso chat de atendimento.</p>
+            <button class="botao-secundario">Iniciar conversa</button>
+          </div>
+
+          <div>
+            <span>📦</span>
+            <h3>Entrega e pedidos</h3>
+            <p>Consulte informações sobre prazos, trocas e devoluções.</p>
+            <button class="botao-secundario">Ver informações</button>
+          </div>
+
+          <div>
+            <span>❓</span>
+            <h3>Central de ajuda</h3>
+            <p>Encontre respostas para as dúvidas mais frequentes.</p>
+            <button class="botao-secundario">Acessar ajuda</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+    <footer class="rodape">
+      <div class="rodape-grid">
+        <div>
+          <div class="logo-rodape">📚 Livraria Aurora</div>
+          <p>
+            Histórias que iluminam novos caminhos e conectam
+            leitores a novos mundos.
+          </p>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <a href="#">Sobre a Aurora</a>
+          <a href="#">Trabalhe conosco</a>
+          <a href="#">Nossas lojas</a>
+        </div>
+
+        <div>
+          <h3>Atendimento</h3>
+          <a href="#" data-secao="atendimento">Central de ajuda</a>
+          <a href="#">Política de entrega</a>
+          <a href="#">Trocas e devoluções</a>
+        </div>
+
+        <div>
+          <h3>Redes sociais</h3>
+          <div class="redes-sociais">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape-final">
+        <span>© 2026 Livraria Aurora. Todos os direitos reservados.</span>
+        <span>Feito para quem ama ler. ♥</span>
+      </div>
+    </footer>
+  </div>
+
+  <div class="notificacao" id="notificacao"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
