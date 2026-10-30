@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livraria Aurora</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- TELA DE LOGIN -->
+  <main class="container tela-login" id="telaLogin">
+
+    <section class="apresentacao">
+      <div class="logo">📚 Livraria Aurora</div>
+
+      <h1>Histórias que iluminam novos caminhos.</h1>
+
+      <p>
+        Entre em sua conta para continuar descobrindo livros,
+        autores e mundos incríveis.
+      </p>
+    </section>
+
+    <section class="login-area">
+      <h2 id="tituloFormulario">Bem-vindo de volta!</h2>
+      <p class="subtitulo" id="subtituloFormulario">
+        Acesse sua conta para continuar.
+      </p>
+
+      <form id="formularioLogin">
+        <div class="campo campo-nome oculto" id="campoNome">
+          <label for="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            placeholder="Digite seu nome"
+          >
+        </div>
+        
+        <div class="campo campo-nome oculto" id="campoSobrenome">
+          <label for="sobrenome">Sobrenome</label>
+          <input
+            type="text"
+            id="sobrenome"
+            placeholder="Digite seu sobrenome"
+          >
+        </div>
+        
+        <div class="campo campo-nome oculto" id="campoTelefone">
+          <label for="telefone">Telefone</label>
+          <input
+            type="tel"
+            id="telefone"
+            placeholder="(00) 00000-0000"
+          >
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Digite seu e-mail"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite sua senha"
+            required
+          >
+        </div>
+
+        <div class="opcoes">
+          <label class="lembrar">
+            <input type="checkbox">
+            Lembrar de mim
+          </label>
+
+          <a href="#" class="esqueceu" id="linkEsqueci">
+            Esqueceu a senha?
+          </a>
+        </div>
+
+        <button class="botao" type="submit" id="botaoFormulario">
+          Entrar
+        </button>
+
+        <div class="mensagem" id="mensagem"></div>
+      </form>
+
+      <p class="cadastro">
+        <span id="textoCadastro">Ainda não possui uma conta?</span>
+        <a href="#" id="alternarCadastro">Criar cadastro</a>
+      </p>
+    </section>
+  </main>
+
+
+  <!-- PÁGINA PRINCIPAL DA LOJA -->
+  <div class="site-loja oculto" id="siteLoja">
+
+    <div class="faixa-promocional">
+      <span class="faixa-promocional-texto" id="faixaPromocionalTexto">
+        🚚 Frete grátis nas compras acima de R$ 149,90
+      </span>
+    </div>
+
+    <header class="cabecalho">
+
+      <div class="topo-cabecalho">
+
+        <a href="#" class="logo-site" data-secao="inicio">
+          📚 <span>Livraria Aurora</span>
+        </a>
+
+        <form class="barra-pesquisa" id="formPesquisa">
+          <input
+            type="search"
+            id="campoPesquisa"
+            placeholder="O que você deseja ler hoje?"
+          >
+          <button type="submit">🔍</button>
+        </form>
+
+        <div class="acoes-cabecalho">
+          <a href="#" data-secao="minha-conta">
+            👤<small id="nomeUsuarioCabecalho">Minha conta</small>
+          </a>
+
+          <a href="#" data-secao="minhas-listas">
+            ❤️<small>Minhas listas</small>
+          </a>
+
+          <a href="#" class="carrinho-link" data-secao="carrinho">
+            🛒
+            <span class="contador-carrinho" id="contadorCarrinho">0</span>
+            <small>Carrinho</small>
+          </a>
+        </div>
+      </div>
+
+      <nav class="menu-principal">
+        <a href="#" data-secao="inicio">Início</a>
+        <a href="#" data-secao="livros">Livros</a>
+        <a href="#" data-secao="ofertas">Ofertas do dia</a>
+        <a href="#" data-secao="mais-vendidos">Mais vendidos</a>
+        <a href="#" data-secao="novidades">Lançamentos</a>
+        <a href="#" data-secao="atendimento">Atendimento</a>
+        <a href="#" data-secao="meus-pedidos">Meus pedidos</a>
+      </nav>
+    </header>
+
+
+    <main class="conteudo-principal">
+
+      <!-- INÍCIO -->
+      <section class="pagina ativa" id="inicio">
+
+        <div class="banner-principal">
+          <div>
+            <span class="etiqueta-banner">CLUBE DOS LEITORES</span>
+            <h1>Todo livro abre uma nova porta.</h1>
+            <p>
+              Encontre histórias para transformar seus dias,
+              ampliar seus horizontes e despertar sua imaginação.
+            </p>
+            <button class="botao-banner" data-secao="livros">
+              Explorar livros
+            </button>
+          </div>
+
+          <div class="ilustracao-livros">
+            📚
+          </div>
+        </div>
+
+        <section class="secao">
+          <div class="titulo-secao">
+            <div>
+              <span class="mini-titulo">ESCOLHAS DA AURORA</span>
+              <h2>Destaques para você</h2>
+            </div>
+            <a href="#" data-secao="livros">Ver todos →</a>
+          </div>
+
+          <div class="grade-livros" id="gradeDestaques"></div>
+        </section>
+
+        <section class="secao secao-recomendados oculto" id="secaoRecomendados">
+          <div class="titulo-secao">
+            <div>
+              <span class="mini-titulo">SÓ PARA VOCÊ</span>
+              <h2>Recomendados para você</h2>
+              <p id="subtituloRecomendados">Baseado no que você já curtiu e comprou</p>
+            </div>
+          </div>
+
+          <div class="grade-livros" id="gradeRecomendados"></div>
+        </section>
+
+        <section class="categorias-destaque">
+          <div class="titulo-secao">
+            <div>
+              <span class="mini-titulo">EXPLORE POR TEMA</span>
+              <h2>Encontre seu próximo universo</h2>
+            </div>
+          </div>
+
+          <div class="grade-categorias">
+            <button data-categoria="Romance">Romance</button>
+            <button data-categoria="Fantasia">Fantasia</button>
+            <button data-categoria="Suspense">Suspense</button>
+            <button data-categoria="Desenvolvimento">Desenvolvimento</button>
+            <button data-categoria="Infantil">Infantil</button>
+            <button data-categoria="Clássicos">Clássicos</button>
+          </div>
+        </section>
+
+        <section class="newsletter">
+          <div>
+            <span class="mini-titulo">CLUBE AURORA</span>
+            <h2>Receba novidades literárias</h2>
+            <p>Ofertas, lançamentos e recomendações direto no seu e-mail.</p>
+          </div>
+
+          <form id="formNewsletter">
+            <input type="email" placeholder="Seu melhor e-mail" required>
+            <button class="botao" type="submit">Quero receber</button>
+          </form>
+        </section>
+      </section>
+
+
+      <!-- LIVROS -->
+      <section class="pagina" id="livros">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">NOSSO CATÁLOGO</span>
+          <h1>Todos os livros</h1>
+          <p>Escolha uma nova história para levar com você.</p>
+        </div>
+
+        <div class="barra-filtros">
+          <button type="button" class="botao-filtros" id="botaoAbrirFiltros" aria-expanded="false">
+            <span>⚙ Filtros</span>
+            <span class="contagem-filtros oculto" id="contagemFiltrosAtivos">0</span>
+          </button>
+          <div class="chips-filtros" id="chipsFiltrosAtivos"></div>
+        </div>
+
+        <div class="painel-filtros oculto" id="painelFiltros">
+          <div class="campo">
+            <label for="filtroCategoria">Categoria</label>
+            <select id="filtroCategoria">
+              <option value="todos">Todas</option>
+              <option value="Romance">Romance</option>
+              <option value="Fantasia">Fantasia</option>
+              <option value="Suspense">Suspense</option>
+              <option value="Desenvolvimento">Desenvolvimento</option>
+              <option value="Infantil">Infantil</option>
+              <option value="Clássicos">Clássicos</option>
+              <option value="Biografia">Biografias</option>
+              <option value="História">História</option>
+              <option value="Ficção Científica">Ficção Científica</option>
+              <option value="Terror">Terror</option>
+              <option value="Aventura">Aventura</option>
+              <option value="Poesia">Poesia</option>
+              <option value="Filosofia">Filosofia</option>
+              <option value="Negócios">Negócios</option>
+              <option value="HQs e Mangás">HQs e Mangás</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="filtroAutor">Autor</label>
+            <select id="filtroAutor">
+              <option value="todos">Todos os autores</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="filtroPreco">Faixa de preço</label>
+            <select id="filtroPreco">
+              <option value="todos">Qualquer preço</option>
+              <option value="0-30">Até R$ 30</option>
+              <option value="30-60">R$ 30 a R$ 60</option>
+              <option value="60-100">R$ 60 a R$ 100</option>
+              <option value="100-99999">Acima de R$ 100</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="filtroAvaliacao">Avaliação mínima</label>
+            <select id="filtroAvaliacao">
+              <option value="todos">Qualquer avaliação</option>
+              <option value="4.5">4.5 estrelas ou mais</option>
+              <option value="4">4 estrelas ou mais</option>
+              <option value="3">3 estrelas ou mais</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="filtroFaixaEtaria">Faixa etária</label>
+            <select id="filtroFaixaEtaria">
+              <option value="todos">Todas as idades</option>
+              <option value="Livre">Livre</option>
+              <option value="10+">10+</option>
+              <option value="12+">12+</option>
+              <option value="14+">14+</option>
+              <option value="16+">16+</option>
+            </select>
+          </div>
+          <div class="campo acoes-filtro">
+            <button type="button" class="limpar-filtros" id="botaoLimparFiltros">Limpar filtros</button>
+          </div>
+        </div>
+
+        <p class="contagem-livros" id="contagemLivros"></p>
+
+        <div class="grade-livros" id="gradeTodosLivros"></div>
+      </section>
+
+
+      <!-- OFERTAS -->
+      <section class="pagina" id="ofertas">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">OPORTUNIDADES DO DIA</span>
+          <h1>Ofertas especiais</h1>
+          <p>Livros incríveis com preços que cabem no seu bolso.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeOfertas"></div>
+      </section>
+
+
+      <!-- MAIS VENDIDOS -->
+      <section class="pagina" id="mais-vendidos">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">PREFERIDOS DOS LEITORES</span>
+          <h1>Mais vendidos</h1>
+          <p>As histórias que estão conquistando todo mundo.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeMaisVendidos"></div>
+      </section>
+
+
+      <!-- LANÇAMENTOS -->
+      <section class="pagina" id="novidades">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ACABARAM DE CHEGAR</span>
+          <h1>Lançamentos</h1>
+          <p>Descubra os livros mais recentes da Livraria Aurora.</p>
+        </div>
+
+        <div class="grade-livros" id="gradeLancamentos"></div>
+      </section>
+
+
+      <!-- LISTAS -->
+      <section class="pagina" id="minhas-listas">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SEUS FAVORITOS</span>
+          <h1>Minhas listas</h1>
+          <p>Salve os livros que você deseja ler depois.</p>
+        </div>
+
+        <div class="lista-vazia" id="listaFavoritos">
+          <span>❤️</span>
+          <h2>Sua lista ainda está vazia</h2>
+          <p>Clique no coração dos livros para adicioná-los aos favoritos.</p>
+          <button class="botao" data-secao="livros">Encontrar livros</button>
+        </div>
+      </section>
+
+
+      <!-- PEDIDOS -->
+      <section class="pagina" id="meus-pedidos">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ACOMPANHE SUAS COMPRAS</span>
+          <h1>Meus pedidos</h1>
+          <p>Consulte seus pedidos e acompanhe suas entregas.</p>
+        </div>
+
+        <div class="abas-pedidos" id="abasPedidosContainer">
+          <button type="button" class="aba-pedido ativa" data-status-pedido="todos">Todos</button>
+          <button type="button" class="aba-pedido" data-status-pedido="A pagar">A pagar</button>
+          <button type="button" class="aba-pedido" data-status-pedido="Preparando">Preparando</button>
+          <button type="button" class="aba-pedido" data-status-pedido="A caminho">A caminho</button>
+          <button type="button" class="aba-pedido" data-status-pedido="Finalizado">Finalizado</button>
+
+          <div class="mais-abas-pedidos">
+            <button type="button" class="botao-mais-abas" id="botaoMaisAbasPedidos">
+              Mais <span>▾</span>
+            </button>
+            <div class="dropdown-abas oculto" id="dropdownAbasPedidos">
+              <button type="button" class="item-dropdown-aba" data-status-pedido="Devolução e reembolso">
+                Devolução e reembolso
+              </button>
+              <button type="button" class="item-dropdown-aba" data-status-pedido="Cancelado">
+                Cancelado
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lista-itens pedidos" id="listaPedidos"></div>
+      </section>
+
+
+      <!-- CONTA -->
+      <section class="pagina" id="minha-conta">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SEU PERFIL</span>
+          <h1>Minha conta</h1>
+          <p>Gerencie seus dados e preferências.</p>
+        </div>
+
+        <div class="painel-conta">
+          <div class="avatar" id="avatarUsuario">U</div>
+          <div>
+            <h2 id="nomeUsuarioConta">Usuário</h2>
+            <p id="emailUsuarioConta">usuario@email.com</p>
+            <p id="telefoneUsuarioConta"></p>
+          </div>
+        </div>
+
+        <div class="opcoes-conta">
+          <button type="button" class="ativo" data-painel="dados">✏️ Editar dados pessoais</button>
+          <button type="button" data-painel="senha">🔒 Alterar senha</button>
+          <button type="button" data-painel="enderecos">📍 Endereços de entrega</button>
+          <button type="button" data-painel="pagamentos">💳 Formas de pagamento</button>
+          <button id="botaoSair">🚪 Sair da conta</button>
+        </div>
+
+        <div class="area-painel">
+
+          <!-- DADOS PESSOAIS -->
+          <div class="painel-item ativo" id="painel-dados">
+            <div class="cabecalho-painel">
+              <div>
+                <h3>Dados pessoais</h3>
+                <p class="descricao" id="descricaoDados">Seus dados estão protegidos. Ative a edição para alterá-los.</p>
+              </div>
+
+              <label class="interruptor" for="alternarEdicaoDados">
+                <input type="checkbox" id="alternarEdicaoDados">
+                <span class="trilho"><span class="bolinha"></span></span>
+                <span class="rotulo-interruptor" id="rotuloEdicaoDados">Edição desativada</span>
+              </label>
+            </div>
+
+            <form id="formDados" class="travado" novalidate>
+              <fieldset class="campos-dados" id="camposDados" disabled>
+                <div class="linha-campos">
+                  <div class="campo">
+                    <label for="contaNome">Nome</label>
+                    <input type="text" id="contaNome" placeholder="Seu nome">
+                  </div>
+                  <div class="campo">
+                    <label for="contaSobrenome">Sobrenome</label>
+                    <input type="text" id="contaSobrenome" placeholder="Seu sobrenome">
+                  </div>
+                  <div class="campo">
+                    <label for="contaEmail">E-mail</label>
+                    <input type="email" id="contaEmail" placeholder="Seu e-mail">
+                  </div>
+                  <div class="campo">
+                    <label for="contaTelefone">Telefone</label>
+                    <input type="tel" id="contaTelefone" placeholder="(00) 00000-0000">
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="acoes-form oculto" id="acoesDados">
+                <button type="submit" class="botao botao-auto">Salvar alterações</button>
+                <button type="button" class="botao-contorno" id="cancelarEdicaoDados">Cancelar</button>
+              </div>
+              <div class="aviso-form" id="avisoDados"></div>
+            </form>
+          </div>
+
+          <!-- SENHA -->
+          <div class="painel-item" id="painel-senha">
+            <h3>Alterar senha</h3>
+            <p class="descricao">Escolha uma senha forte que só você conheça.</p>
+
+            <form id="formSenha" novalidate>
+              <div class="linha-campos">
+                <div class="campo largo">
+                  <label for="senhaAtual">Senha atual</label>
+                  <input type="password" id="senhaAtual" placeholder="Digite sua senha atual" autocomplete="current-password">
+                </div>
+                <div class="campo">
+                  <label for="senhaNova">Nova senha</label>
+                  <input type="password" id="senhaNova" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
+                </div>
+                <div class="campo">
+                  <label for="senhaConfirma">Confirmar nova senha</label>
+                  <input type="password" id="senhaConfirma" placeholder="Repita a nova senha" autocomplete="new-password">
+                </div>
+              </div>
+
+              <div class="forca-senha" id="forcaSenha"><span></span></div>
+              <small class="texto-forca" id="textoForca"></small>
+
+              <label class="mostrar-senha">
+                <input type="checkbox" id="mostrarSenhas">
+                Mostrar senhas
+              </label>
+
+              <div class="acoes-form">
+                <button type="submit" class="botao botao-auto">Atualizar senha</button>
+              </div>
+              <div class="aviso-form" id="avisoSenha"></div>
+            </form>
+          </div>
+
+          <!-- ENDEREÇOS -->
+          <div class="painel-item" id="painel-enderecos">
+            <div class="cabecalho-painel">
+              <div>
+                <h3>Endereços de entrega</h3>
+                <p class="descricao">Receba seus livros onde for mais confortável.</p>
+              </div>
+              <button type="button" class="botao botao-auto" id="botaoNovoEndereco">+ Novo endereço</button>
+            </div>
+
+            <div class="lista-itens" id="listaEnderecos"></div>
+
+            <form id="formEndereco" class="form-interno oculto" novalidate>
+              <h4 id="tituloFormEndereco">Novo endereço</h4>
+              <input type="hidden" id="endId">
+
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="endApelido">Identificação</label>
+                  <select id="endApelido">
+                    <option value="Casa">🏠 Casa</option>
+                    <option value="Trabalho">🏢 Trabalho</option>
+                    <option value="Outro">📌 Outro</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="endCep">CEP</label>
+                  <input type="text" id="endCep" placeholder="00000-000" inputmode="numeric">
+                  <small class="dica-campo" id="statusCep"></small>
+                </div>
+                <div class="campo largo">
+                  <label for="endRua">Rua / Avenida</label>
+                  <input type="text" id="endRua" placeholder="Nome da rua">
+                </div>
+              </div>
+
+              <div class="linha-campos tres">
+                <div class="campo">
+                  <label for="endNumero">Número</label>
+                  <input type="text" id="endNumero" placeholder="Ex: 123">
+                </div>
+                <div class="campo">
+                  <label for="endComplemento">Complemento</label>
+                  <input type="text" id="endComplemento" placeholder="Apto, bloco... (opcional)">
+                </div>
+                <div class="campo">
+                  <label for="endBairro">Bairro</label>
+                  <input type="text" id="endBairro" placeholder="Seu bairro">
+                </div>
+              </div>
+
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="endCidade">Cidade</label>
+                  <input type="text" id="endCidade" placeholder="Sua cidade">
+                </div>
+                <div class="campo">
+                  <label for="endUf">Estado (UF)</label>
+                  <input type="text" id="endUf" maxlength="2" placeholder="SP">
+                </div>
+              </div>
+
+              <label class="mostrar-senha">
+                <input type="checkbox" id="endPrincipal">
+                Definir como endereço principal
+              </label>
+
+              <div class="acoes-form">
+                <button type="submit" class="botao botao-auto">Salvar endereço</button>
+                <button type="button" class="botao-contorno" id="cancelarEndereco">Cancelar</button>
+              </div>
+              <div class="aviso-form" id="avisoEndereco"></div>
+            </form>
+          </div>
+
+          <!-- PAGAMENTO -->
+          <div class="painel-item" id="painel-pagamentos">
+            <div class="cabecalho-painel">
+              <div>
+                <h3>Formas de pagamento</h3>
+                <p class="descricao">Salve seus cartões para comprar com mais rapidez.</p>
+              </div>
+              <button type="button" class="botao botao-auto" id="botaoNovoCartao">+ Novo cartão</button>
+            </div>
+
+            <div class="lista-itens" id="listaCartoes"></div>
+
+            <form id="formCartao" class="form-interno oculto" novalidate>
+              <h4>Novo cartão</h4>
+
+              <div class="cartao-visual bandeira-outro previa-cartao" id="previaCartao">
+                <div class="cartao-topo">
+                  <span class="chip"></span>
+                  <span id="previaBandeira">Cartão</span>
+                </div>
+                <div class="cartao-numero" id="previaNumero">•••• •••• •••• ••••</div>
+                <div class="cartao-base">
+                  <span id="previaNome">NOME NO CARTÃO</span>
+                  <span id="previaValidade">MM/AA</span>
+                </div>
+              </div>
+
+              <div class="linha-campos">
+                <div class="campo largo">
+                  <label for="cartNumero">Número do cartão</label>
+                  <input type="text" id="cartNumero" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="off">
+                </div>
+                <div class="campo largo">
+                  <label for="cartNome">Nome impresso no cartão</label>
+                  <input type="text" id="cartNome" placeholder="Como aparece no cartão" autocomplete="off">
+                </div>
+              </div>
+
+              <div class="linha-campos tres">
+                <div class="campo">
+                  <label for="cartValidade">Validade</label>
+                  <input type="text" id="cartValidade" placeholder="MM/AA" inputmode="numeric" autocomplete="off">
+                </div>
+                <div class="campo">
+                  <label for="cartCvv">CVV</label>
+                  <input type="password" id="cartCvv" placeholder="000" inputmode="numeric" autocomplete="off">
+                </div>
+                <div class="campo">
+                  <label for="cartTipo">Tipo</label>
+                  <select id="cartTipo">
+                    <option value="Crédito">Crédito</option>
+                    <option value="Débito">Débito</option>
+                  </select>
+                </div>
+              </div>
+
+              <label class="mostrar-senha">
+                <input type="checkbox" id="cartPrincipal">
+                Definir como forma de pagamento principal
+              </label>
+
+              <div class="acoes-form">
+                <button type="submit" class="botao botao-auto">Salvar cartão</button>
+                <button type="button" class="botao-contorno" id="cancelarCartao">Cancelar</button>
+              </div>
+              <p class="nota-seguranca">🔐 Por segurança, guardamos apenas a bandeira e os 4 últimos dígitos. O CVV nunca é salvo.<br>Este é um site de teste: pode usar um cartão fictício, sem validação real.</p>
+              <div class="aviso-form" id="avisoCartao"></div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- CARRINHO -->
+      <section class="pagina" id="carrinho">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">SUAS ESCOLHAS</span>
+          <h1>Meu carrinho</h1>
+          <p>Revise seus livros antes de finalizar a compra.</p>
+        </div>
+
+        <div class="etapas-checkout" id="etapasCheckout">
+          <span class="etapa ativa" data-etapa-marcador="carrinho">1. Carrinho</span>
+          <span class="etapa" data-etapa-marcador="checkout">2. Entrega e pagamento</span>
+          <span class="etapa" data-etapa-marcador="sucesso">3. Confirmação</span>
+        </div>
+
+        <!-- passo 1: itens do carrinho -->
+        <div id="conteudoCarrinho"></div>
+
+        <!-- passo 2: escolher endereço e pagamento -->
+        <div class="painel-checkout oculto" id="painelCheckout">
+
+          <!-- 1. entrega e CPF -->
+          <div class="passo-checkout">
+            <h3><span class="num-passo">1</span> Entrega e identificação</h3>
+
+            <div class="colunas-checkout">
+              <div class="bloco-checkout">
+                <h4>Endereço de entrega</h4>
+                <div class="endereco-checkout" id="listaEnderecosCheckout"></div>
+              </div>
+
+              <div class="bloco-checkout">
+                <h4>CPF do comprador</h4>
+                <div class="campo">
+                  <label for="checkoutCpf">CPF</label>
+                  <input type="text" id="checkoutCpf" placeholder="000.000.000-00" inputmode="numeric" autocomplete="off">
+                  <small class="dica-campo">Usado na nota fiscal. Site de teste: pode ser fictício.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. cupom -->
+          <div class="passo-checkout">
+            <h3><span class="num-passo">2</span> Cupom de desconto</h3>
+
+            <div class="bloco-cupom">
+              <input type="text" id="campoCupom" placeholder="Tem um cupom? Digite aqui">
+              <button type="button" id="botaoAplicarCupom">Aplicar</button>
+            </div>
+            <div class="cupom-aplicado" id="cupomAplicado">
+              <span id="textoCupomAplicado"></span>
+              <button type="button" id="botaoRemoverCupom">remover</button>
+            </div>
+          </div>
+
+          <!-- 3. forma de pagamento -->
+          <div class="passo-checkout">
+            <h3><span class="num-passo">3</span> Forma de pagamento</h3>
+
+            <div class="abas-pagamento">
+              <button type="button" class="aba-pagamento ativa" data-metodo="pix">🔑 Pix <small>5% off</small></button>
+              <button type="button" class="aba-pagamento" data-metodo="cartao">💳 Cartão de crédito</button>
+              <button type="button" class="aba-pagamento" data-metodo="boleto">🧾 Boleto</button>
+            </div>
+
+            <!-- Pix -->
+            <div class="painel-pix" id="painelPix">
+              <div class="qr-pix"></div>
+              <p><strong>Pague com Pix e receba 5% de desconto</strong></p>
+              <div class="codigo-pix">
+                <input type="text" id="codigoPix" readonly>
+                <button type="button" id="botaoCopiarPix">Copiar</button>
+              </div>
+              <p class="nota-pix">Código simulado, válido por 30 minutos. Este é um site de teste.</p>
+            </div>
+
+            <!-- Cartão de crédito -->
+            <div class="painel-cartao-checkout oculto" id="painelCartaoCheckout">
+              <div class="lista-itens selecionavel" id="listaCartoesCheckout"></div>
+
+              <div id="formCartaoCheckout">
+                <div class="linha-campos">
+                  <div class="campo largo">
+                    <label for="ckNumero">Número do cartão</label>
+                    <input type="text" id="ckNumero" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="off">
+                  </div>
+                  <div class="campo largo">
+                    <label for="ckNome">Nome impresso no cartão</label>
+                    <input type="text" id="ckNome" placeholder="Como aparece no cartão" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="linha-campos">
+                  <div class="campo">
+                    <label for="ckValidade">Validade</label>
+                    <input type="text" id="ckValidade" placeholder="MM/AA" inputmode="numeric" autocomplete="off">
+                  </div>
+                  <div class="campo">
+                    <label for="ckCvv">CVV</label>
+                    <input type="password" id="ckCvv" placeholder="000" inputmode="numeric" autocomplete="off">
+                  </div>
+                </div>
+
+                <label class="mostrar-senha">
+                  <input type="checkbox" id="ckSalvar">
+                  Salvar este cartão para as próximas compras
+                </label>
+                <p class="nota-seguranca">🔐 Guardamos apenas a bandeira e os 4 últimos dígitos. O CVV nunca é salvo. Site de teste: pode usar um cartão fictício.</p>
+              </div>
+
+              <div class="campo campo-parcelas">
+                <label for="ckParcelas">Parcelas</label>
+                <select id="ckParcelas"></select>
+              </div>
+            </div>
+
+            <!-- Boleto -->
+            <div class="painel-boleto oculto" id="painelBoleto">
+              <p><strong>Boleto bancário</strong></p>
+              <div class="codigo-pix">
+                <input type="text" id="codigoBoleto" readonly>
+                <button type="button" id="botaoCopiarBoleto">Copiar</button>
+              </div>
+              <p class="nota-pix">Vence em 3 dias. O pedido é enviado após a confirmação do pagamento. Boleto simulado, site de teste.</p>
+            </div>
+          </div>
+
+          <!-- 4. detalhes do pagamento -->
+          <div class="passo-checkout">
+            <h3><span class="num-passo">4</span> Detalhes do pagamento</h3>
+            <div class="resumo-checkout" id="resumoCheckout"></div>
+          </div>
+
+          <div class="aviso-form" id="avisoCheckout"></div>
+
+          <div class="acoes-form">
+            <button type="button" class="botao botao-auto" id="botaoConfirmarPedido">Confirmar pedido</button>
+            <button type="button" class="botao-contorno" id="botaoVoltarCarrinho">Voltar ao carrinho</button>
+          </div>
+        </div>
+
+        <!-- passo 3: pedido confirmado -->
+        <div class="confirmacao-pedido oculto" id="confirmacaoPedido">
+          <span>🎉</span>
+          <h2>Pedido realizado com sucesso!</h2>
+          <p id="textoConfirmacaoPedido"></p>
+          <div class="acoes-form" style="justify-content:center;">
+            <button type="button" class="botao botao-auto oculto" id="botaoPagarAgoraConfirmacao">Pagar agora</button>
+            <button type="button" class="botao botao-auto" data-secao="meus-pedidos">Ver meus pedidos</button>
+            <button type="button" class="botao-contorno" data-secao="livros">Continuar comprando</button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ATENDIMENTO -->
+      <section class="pagina" id="atendimento">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">ESTAMOS AQUI PARA AJUDAR</span>
+          <h1>Atendimento</h1>
+          <p>Conte com a equipe Aurora para tirar suas dúvidas.</p>
+        </div>
+
+        <div class="cards-atendimento" id="cardsAtendimento">
+          <div data-card-atendimento="chat">
+            <span>💬</span>
+            <h3>Fale conosco</h3>
+            <p>Converse com a Lia, nossa assistente virtual. Se ela não resolver, um atendente assume.</p>
+            <button type="button" class="botao-secundario" data-vista-atendimento="chat">Iniciar conversa</button>
+          </div>
+
+          <div data-card-atendimento="entrega">
+            <span>📦</span>
+            <h3>Entrega e pedidos</h3>
+            <p>Calcule prazos, rastreie seus pedidos e veja como funcionam trocas e devoluções.</p>
+            <button type="button" class="botao-secundario" data-vista-atendimento="entrega">Ver informações</button>
+          </div>
+
+          <div data-card-atendimento="ajuda">
+            <span>❓</span>
+            <h3>Central de ajuda</h3>
+            <p>Busque por assunto e encontre respostas para as dúvidas mais frequentes.</p>
+            <button type="button" class="botao-secundario" data-vista-atendimento="ajuda">Acessar ajuda</button>
+          </div>
+        </div>
+
+        <div class="area-atendimento" id="areaAtendimento">
+
+          <!-- ===== FALE CONOSCO: CHAT ===== -->
+          <div class="vista-atendimento oculto" id="vista-chat">
+            <div class="chat-layout">
+
+              <div class="chat-janela">
+                <div class="chat-topo">
+                  <div class="chat-avatar ia" id="chatAvatar">✨</div>
+                  <div class="chat-quem">
+                    <strong id="chatNome">Lia · Assistente virtual</strong>
+                    <small id="chatStatus"><i class="ponto-online"></i> Online agora</small>
+                  </div>
+                  <div class="chat-topo-acoes">
+                    <button type="button" class="chat-btn-topo" id="chatBotaoHumano">🙋 Falar com atendente</button>
+                    <button type="button" class="chat-btn-topo" id="chatBotaoNova">↻ Nova conversa</button>
+                  </div>
+                </div>
+
+                <div class="chat-fluxo" id="chatFluxo" role="log" aria-live="polite"></div>
+
+                <form class="chat-entrada" id="chatForm" autocomplete="off">
+                  <input type="text" id="chatCampo" placeholder="Digite sua mensagem..." maxlength="300" aria-label="Mensagem">
+                  <button type="submit" class="chat-enviar" aria-label="Enviar mensagem">➤</button>
+                </form>
+
+                <p class="chat-nota">🔐 Atendimento simulado para fins de teste. Não informe dados reais de cartão ou senhas.</p>
+              </div>
+
+              <aside class="chat-lateral">
+                <h4>Como funciona</h4>
+                <ol class="etapas-atendimento" id="etapasChat">
+                  <li class="ativa" data-etapa-chat="1">
+                    <b>1</b>
+                    <div>
+                      <strong>Assistente virtual</strong>
+                      <p>A Lia responde na hora as dúvidas mais comuns.</p>
+                    </div>
+                  </li>
+                  <li data-etapa-chat="2">
+                    <b>2</b>
+                    <div>
+                      <strong>Atendente humano</strong>
+                      <p>Se a Lia não resolver, você é transferido já com o resumo da conversa.</p>
+                    </div>
+                  </li>
+                  <li data-etapa-chat="3">
+                    <b>3</b>
+                    <div>
+                      <strong>Protocolo e avaliação</strong>
+                      <p>Ao final, você recebe um protocolo e pode avaliar o atendimento.</p>
+                    </div>
+                  </li>
+                </ol>
+
+                <div class="chat-protocolo oculto" id="chatProtocolo">
+                  Seu protocolo
+                  <strong id="chatProtocoloNumero"></strong>
+                </div>
+
+                <p class="chat-dica">💡 Tenha em mãos o número do pedido (ex.: AU12345678) para agilizar.</p>
+              </aside>
+            </div>
+          </div>
+
+
+          <!-- ===== ENTREGA E PEDIDOS ===== -->
+          <div class="vista-atendimento oculto" id="vista-entrega">
+
+            <div class="faixa-beneficios">
+              <div><span>🚚</span><strong>Frete grátis</strong><small>acima de R$ 149,90</small></div>
+              <div><span>🔑</span><strong>Pix na hora</strong><small>confirmação imediata + 5% off</small></div>
+              <div><span>↩️</span><strong>7 dias</strong><small>para desistir da compra</small></div>
+              <div><span>🛡️</span><strong>Compra segura</strong><small>seus dados protegidos</small></div>
+            </div>
+
+            <div class="grade-entrega">
+
+              <div class="bloco-atend">
+                <h3>📍 Calcule o prazo de entrega</h3>
+                <p class="descricao-bloco">Informe seu CEP e veja prazo e frete estimados.</p>
+
+                <form class="form-cep" id="formPrazoCep" novalidate>
+                  <input type="text" id="prazoCep" placeholder="00000-000" inputmode="numeric" maxlength="9" aria-label="CEP">
+                  <button type="submit" class="botao botao-auto">Calcular</button>
+                </form>
+
+                <div id="resultadoPrazo"></div>
+              </div>
+
+              <div class="bloco-atend">
+                <h3>🔎 Rastreie seus pedidos</h3>
+                <p class="descricao-bloco">Seus pedidos mais recentes, com atalho para o rastreio.</p>
+                <div id="rastreioAtendimento"></div>
+              </div>
+            </div>
+
+            <div class="bloco-atend bloco-largo">
+              <h3>🗺️ A jornada do seu livro</h3>
+              <p class="descricao-bloco">Do clique até a sua estante, em quatro passos.</p>
+
+              <ol class="jornada">
+                <li>
+                  <span>🧾</span>
+                  <strong>Pedido confirmado</strong>
+                  <small>Pix e cartão são confirmados na hora. Boleto, em até 2 dias úteis após o pagamento.</small>
+                </li>
+                <li>
+                  <span>📦</span>
+                  <strong>Preparando</strong>
+                  <small>Separamos e embalamos com carinho em até 1 dia útil.</small>
+                </li>
+                <li>
+                  <span>🚚</span>
+                  <strong>A caminho</strong>
+                  <small>Código de rastreio disponível em Meus pedidos.</small>
+                </li>
+                <li>
+                  <span>🏠</span>
+                  <strong>Entregue</strong>
+                  <small>Confirme o recebimento para finalizar o pedido.</small>
+                </li>
+              </ol>
+            </div>
+
+            <div class="bloco-atend bloco-largo">
+              <h3>↩️ Trocas, devoluções e reembolso</h3>
+              <p class="descricao-bloco">Sem burocracia: tudo é solicitado direto em Meus pedidos.</p>
+
+              <div class="cards-politica">
+                <div>
+                  <strong>7 dias para desistir</strong>
+                  <p>Mudou de ideia? Você pode devolver em até 7 dias corridos após receber o pedido.</p>
+                </div>
+                <div>
+                  <strong>Livro com defeito</strong>
+                  <p>Páginas faltando, avaria ou título diferente do pedido? Trocamos ou devolvemos o valor.</p>
+                </div>
+                <div>
+                  <strong>Como solicitar</strong>
+                  <p>Confirme a entrega e clique em “Devolução e reembolso” no pedido.</p>
+                </div>
+              </div>
+
+              <div class="prazos-reembolso">
+                <h4>Quando o dinheiro volta?</h4>
+                <ul>
+                  <li><b>Pix</b><span>até 2 dias úteis</span></li>
+                  <li><b>Cartão de crédito</b><span>até 2 faturas</span></li>
+                  <li><b>Boleto</b><span>até 5 dias úteis, em conta</span></li>
+                </ul>
+              </div>
+
+              <div class="acoes-form">
+                <button type="button" class="botao botao-auto" data-secao="meus-pedidos">Ir para Meus pedidos</button>
+                <button type="button" class="botao-contorno" data-vista-atendimento="chat">Falar com a gente</button>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- ===== CENTRAL DE AJUDA ===== -->
+          <div class="vista-atendimento oculto" id="vista-ajuda">
+
+            <div class="ajuda-hero">
+              <h3>Como podemos ajudar?</h3>
+              <div class="ajuda-busca">
+                <span>🔍</span>
+                <input type="search" id="ajudaBusca" placeholder="Busque por assunto: cupom, boleto, prazo, senha..." aria-label="Buscar na central de ajuda">
+              </div>
+              <div class="ajuda-populares" id="ajudaPopulares"></div>
+            </div>
+
+            <div class="ajuda-categorias" id="ajudaCategorias"></div>
+
+            <p class="ajuda-contagem" id="ajudaContagem"></p>
+            <div class="ajuda-lista" id="ajudaLista"></div>
+
+            <div class="ajuda-rodape">
+              <div>
+                <strong>Não encontrou o que procurava?</strong>
+                <p>A Lia responde na hora e, se precisar, chama um atendente.</p>
+              </div>
+              <button type="button" class="botao botao-auto" data-vista-atendimento="chat">Falar no chat</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+    </main>
+
+
+    <footer class="rodape">
+      <div class="rodape-grid">
+        <div>
+          <div class="logo-rodape">📚 Livraria Aurora</div>
+          <p>
+            Histórias que iluminam novos caminhos e conectam
+            leitores a novos mundos.
+          </p>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <a href="#">Sobre a Aurora</a>
+          <a href="#">Trabalhe conosco</a>
+          <a href="#">Nossas lojas</a>
+        </div>
+
+        <div>
+          <h3>Atendimento</h3>
+          <a href="#" data-secao="atendimento" data-vista-atendimento="ajuda">Central de ajuda</a>
+          <a href="#" data-vista-atendimento="entrega">Política de entrega</a>
+          <a href="#" data-vista-atendimento="entrega">Trocas e devoluções</a>
+        </div>
+
+        <div>
+          <h3>Redes sociais</h3>
+          <div class="redes-sociais">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape-final">
+        <span>© 2026 Livraria Aurora. Todos os direitos reservados.</span>
+        <span>Feito para quem ama ler. ♥</span>
+      </div>
+    </footer>
+  </div>
+
+  <div class="notificacao" id="notificacao"></div>
+
+  <!-- MODAL DE DETALHES DO LIVRO -->
+  <div class="modal-overlay oculto" id="modalDetalhes">
+    <div class="modal-detalhes" id="conteudoModalDetalhes"></div>
+  </div>
+
+  <!-- MODAL DE CANCELAMENTO DE PEDIDO -->
+  <div class="modal-overlay oculto" id="modalCancelamento">
+    <div class="modal-cancelamento">
+      <button class="fechar-modal" id="fecharModalCancelamento">✕</button>
+      <h3>Cancelar pedido <span id="numeroPedidoCancelar"></span></h3>
+      <p>Poxa, sentiremos falta dessa venda. Conta pra gente o motivo:</p>
+
+      <div class="opcoes-motivo" id="opcoesMotivoCancelamento">
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Mudei de ideia">
+          Mudei de ideia
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Encontrei um preço melhor">
+          Encontrei um preço melhor em outro lugar
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Demora na entrega">
+          O prazo de entrega é muito longo
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Pedido errado">
+          Comprei por engano / pedido errado
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Escolhi outra forma de pagamento">
+          Quero escolher outra forma de pagamento
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoCancelamento" value="Outro motivo">
+          Outro motivo
+        </label>
+      </div>
+
+      <div class="campo oculto" id="campoOutroMotivo">
+        <label for="textoOutroMotivo">Conte com mais detalhes</label>
+        <textarea id="textoOutroMotivo" rows="3" placeholder="Escreva o motivo do cancelamento..."></textarea>
+      </div>
+
+      <div class="aviso-form" id="avisoCancelamento"></div>
+
+      <div class="acoes-form">
+        <button type="button" class="botao botao-auto" id="botaoConfirmarCancelamento">Confirmar cancelamento</button>
+        <button type="button" class="botao-contorno" id="botaoDesistirCancelamento">Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DEVOLUÇÃO E REEMBOLSO -->
+  <div class="modal-overlay oculto" id="modalDevolucao">
+    <div class="modal-cancelamento">
+      <button class="fechar-modal" id="fecharModalDevolucao">✕</button>
+      <h3>Devolução e reembolso <span id="numeroPedidoDevolucao"></span></h3>
+      <p>Conte pra gente o que houve com o pedido:</p>
+
+      <div class="opcoes-motivo" id="opcoesMotivoDevolucao">
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoDevolucao" value="Produto com defeito ou avariado">
+          Produto com defeito ou avariado
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoDevolucao" value="Recebi um produto diferente do pedido">
+          Recebi um produto diferente do pedido
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoDevolucao" value="Não gostei do livro">
+          Não gostei do livro
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoDevolucao" value="A entrega demorou muito">
+          A entrega demorou muito
+        </label>
+        <label class="opcao-motivo">
+          <input type="radio" name="motivoDevolucao" value="Outro motivo">
+          Outro motivo
+        </label>
+      </div>
+
+      <div class="campo oculto" id="campoOutroMotivoDevolucao">
+        <label for="textoOutroMotivoDevolucao">Conte com mais detalhes</label>
+        <textarea id="textoOutroMotivoDevolucao" rows="3" placeholder="Escreva o motivo da devolução..."></textarea>
+      </div>
+
+      <div class="aviso-form" id="avisoDevolucao"></div>
+
+      <div class="acoes-form">
+        <button type="button" class="botao botao-auto" id="botaoConfirmarDevolucao">Solicitar devolução</button>
+        <button type="button" class="botao-contorno" id="botaoDesistirDevolucao">Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE RASTREIO DO PEDIDO -->
+  <div class="modal-overlay oculto" id="modalRastreio">
+    <div class="modal-detalhes modal-rastreio">
+      <button class="fechar-modal" id="fecharModalRastreio">✕</button>
+      <div id="conteudoModalRastreio"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DETALHES DO PEDIDO -->
+  <div class="modal-overlay oculto" id="modalDetalhesPedido">
+    <div class="modal-detalhes" id="conteudoModalDetalhesPedido"></div>
+  </div>
+
+
+  <!-- MODAL: ALTERAR ENDEREÇO DE ENTREGA (CHECKOUT) -->
+  <div class="modal-overlay oculto" id="modalEnderecoCheckout">
+    <div class="modal-cancelamento modal-endereco-checkout">
+      <button type="button" class="fechar-modal" id="fecharModalEnderecoCheckout">✕</button>
+
+      <div id="vistaListaEndereco">
+        <h3>Alterar endereço de entrega</h3>
+        <p>Escolha onde você quer receber este pedido.</p>
+
+        <div class="lista-modal-endereco" id="listaModalEnderecos"></div>
+
+        <div class="acoes-form">
+          <button type="button" class="botao botao-auto" id="botaoUsarEndereco">Usar este endereço</button>
+          <button type="button" class="botao-contorno" id="botaoNovoEnderecoCheckout">+ Novo endereço</button>
+        </div>
+      </div>
+
+      <form id="vistaFormEndereco" class="oculto" novalidate>
+        <h3 id="tituloFormModalEndereco">Novo endereço</h3>
+        <p>Preencha o CEP e completaremos o resto para você.</p>
+        <input type="hidden" id="mEndId">
+
+        <div class="linha-campos">
+          <div class="campo">
+            <label for="mEndApelido">Identificação</label>
+            <select id="mEndApelido">
+              <option value="Casa">🏠 Casa</option>
+              <option value="Trabalho">🏢 Trabalho</option>
+              <option value="Outro">📌 Outro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="mEndCep">CEP</label>
+            <input type="text" id="mEndCep" placeholder="00000-000" inputmode="numeric">
+            <small class="dica-campo" id="mStatusCep"></small>
+          </div>
+          <div class="campo largo">
+            <label for="mEndRua">Rua / Avenida</label>
+            <input type="text" id="mEndRua" placeholder="Nome da rua">
+          </div>
+        </div>
+
+        <div class="linha-campos tres">
+          <div class="campo">
+            <label for="mEndNumero">Número</label>
+            <input type="text" id="mEndNumero" placeholder="Ex: 123">
+          </div>
+          <div class="campo">
+            <label for="mEndComplemento">Complemento</label>
+            <input type="text" id="mEndComplemento" placeholder="Apto, bloco... (opcional)">
+          </div>
+          <div class="campo">
+            <label for="mEndBairro">Bairro</label>
+            <input type="text" id="mEndBairro" placeholder="Seu bairro">
+          </div>
+        </div>
+
+        <div class="linha-campos">
+          <div class="campo">
+            <label for="mEndCidade">Cidade</label>
+            <input type="text" id="mEndCidade" placeholder="Sua cidade">
+          </div>
+          <div class="campo">
+            <label for="mEndUf">Estado (UF)</label>
+            <input type="text" id="mEndUf" maxlength="2" placeholder="SP">
+          </div>
+        </div>
+
+        <label class="mostrar-senha">
+          <input type="checkbox" id="mEndPrincipal">
+          Definir como endereço principal
+        </label>
+
+        <div class="aviso-form" id="avisoModalEndereco"></div>
+
+        <div class="acoes-form">
+          <button type="submit" class="botao botao-auto">Salvar e usar</button>
+          <button type="button" class="botao-contorno" id="botaoVoltarListaEndereco">Voltar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PAGAR PEDIDO (PIX / BOLETO) -->
+  <div class="modal-overlay oculto" id="modalPagamentoPedido">
+    <div class="modal-cancelamento modal-pagamento">
+      <button type="button" class="fechar-modal" id="fecharModalPagamento">✕</button>
+      <div id="conteudoModalPagamento"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
