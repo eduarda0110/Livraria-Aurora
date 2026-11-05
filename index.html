@@ -9,10 +9,13 @@
 
 <body>
 
+  <a href="#conteudoPrincipal" class="pular-conteudo">Pular para o conteúdo</a>
+
   <!-- TELA DE LOGIN -->
-  <main class="container tela-login" id="telaLogin">
+  <main class="container tela-login oculto" id="telaLogin">
 
     <section class="apresentacao">
+      <a href="#" class="voltar-loja" id="voltarParaLoja">← Voltar para a loja</a>
       <div class="logo">📚 Livraria Aurora</div>
 
       <h1>Histórias que iluminam novos caminhos.</h1>
@@ -63,12 +66,13 @@
             type="email"
             id="email"
             placeholder="Digite seu e-mail"
+            autocomplete="email"
             required
           >
         </div>
 
         <div class="campo">
-          <label for="senha">Senha</label>
+          <label for="senha" id="labelSenha">Senha</label>
           <input
             type="password"
             id="senha"
@@ -77,13 +81,13 @@
           >
         </div>
 
-        <div class="opcoes">
+        <div class="opcoes" id="opcoesLogin">
           <label class="lembrar">
-            <input type="checkbox">
+            <input type="checkbox" id="lembrarMim">
             Lembrar de mim
           </label>
 
-          <a href="#" class="esqueceu" id="linkEsqueci">
+          <a href="#" class="esqueceu" id="linkEsqueci" role="button">
             Esqueceu a senha?
           </a>
         </div>
@@ -92,7 +96,7 @@
           Entrar
         </button>
 
-        <div class="mensagem" id="mensagem"></div>
+        <div class="mensagem" id="mensagem" role="alert"></div>
       </form>
 
       <p class="cadastro">
@@ -104,7 +108,7 @@
 
 
   <!-- PÁGINA PRINCIPAL DA LOJA -->
-  <div class="site-loja oculto" id="siteLoja">
+  <div class="site-loja" id="siteLoja">
 
     <div class="faixa-promocional">
       <span class="faixa-promocional-texto" id="faixaPromocionalTexto">
@@ -120,33 +124,34 @@
           📚 <span>Livraria Aurora</span>
         </a>
 
-        <form class="barra-pesquisa" id="formPesquisa">
+        <form class="barra-pesquisa" id="formPesquisa" role="search">
           <input
             type="search"
             id="campoPesquisa"
             placeholder="O que você deseja ler hoje?"
+            aria-label="Pesquisar livros"
           >
-          <button type="submit">🔍</button>
+          <button type="submit" aria-label="Pesquisar">🔍</button>
         </form>
 
         <div class="acoes-cabecalho">
-          <a href="#" data-secao="minha-conta">
-            👤<small id="nomeUsuarioCabecalho">Minha conta</small>
+          <a href="#" data-secao="minha-conta" id="linkConta">
+            👤<small id="nomeUsuarioCabecalho">Entrar</small>
           </a>
 
-          <a href="#" data-secao="minhas-listas">
+          <a href="#" data-secao="minhas-listas" aria-label="Minhas listas">
             ❤️<small>Minhas listas</small>
           </a>
 
-          <a href="#" class="carrinho-link" data-secao="carrinho">
+          <a href="#" class="carrinho-link" data-secao="carrinho" aria-label="Carrinho de compras">
             🛒
-            <span class="contador-carrinho" id="contadorCarrinho">0</span>
+            <span class="contador-carrinho" id="contadorCarrinho" aria-hidden="true">0</span>
             <small>Carrinho</small>
           </a>
         </div>
       </div>
 
-      <nav class="menu-principal">
+      <nav class="menu-principal" aria-label="Menu principal">
         <a href="#" data-secao="inicio">Início</a>
         <a href="#" data-secao="livros">Livros</a>
         <a href="#" data-secao="ofertas">Ofertas do dia</a>
@@ -158,7 +163,7 @@
     </header>
 
 
-    <main class="conteudo-principal">
+    <main class="conteudo-principal" id="conteudoPrincipal" tabindex="-1">
 
       <!-- INÍCIO -->
       <section class="pagina ativa" id="inicio">
@@ -173,6 +178,9 @@
             </p>
             <button class="botao-banner" data-secao="livros">
               Explorar livros
+            </button>
+            <button class="botao-banner botao-banner-contorno so-visitante" type="button" id="botaoCadastroBanner">
+              Criar minha conta
             </button>
           </div>
 
@@ -231,7 +239,7 @@
           </div>
 
           <form id="formNewsletter">
-            <input type="email" placeholder="Seu melhor e-mail" required>
+            <input type="email" id="emailNewsletter" placeholder="Seu melhor e-mail" aria-label="Seu melhor e-mail" required>
             <button class="botao" type="submit">Quero receber</button>
           </form>
         </section>
@@ -428,7 +436,7 @@
         </div>
 
         <div class="opcoes-conta">
-          <button type="button" class="ativo" data-painel="dados">✏️ Editar dados pessoais</button>
+          <button type="button" data-painel="dados">✏️ Editar dados pessoais</button>
           <button type="button" data-painel="senha">🔒 Alterar senha</button>
           <button type="button" data-painel="enderecos">📍 Endereços de entrega</button>
           <button type="button" data-painel="pagamentos">💳 Formas de pagamento</button>
@@ -438,7 +446,7 @@
         <div class="area-painel">
 
           <!-- DADOS PESSOAIS -->
-          <div class="painel-item ativo" id="painel-dados">
+          <div class="painel-item" id="painel-dados">
             <div class="cabecalho-painel">
               <div>
                 <h3>Dados pessoais</h3>
@@ -737,7 +745,7 @@
               <div class="qr-pix"></div>
               <p><strong>Pague com Pix e receba 5% de desconto</strong></p>
               <div class="codigo-pix">
-                <input type="text" id="codigoPix" readonly>
+                <input type="text" id="codigoPix" readonly aria-label="Código Pix">
                 <button type="button" id="botaoCopiarPix">Copiar</button>
               </div>
               <p class="nota-pix">Código simulado, válido por 30 minutos. Este é um site de teste.</p>
@@ -787,7 +795,7 @@
             <div class="painel-boleto oculto" id="painelBoleto">
               <p><strong>Boleto bancário</strong></p>
               <div class="codigo-pix">
-                <input type="text" id="codigoBoleto" readonly>
+                <input type="text" id="codigoBoleto" readonly aria-label="Código do boleto">
                 <button type="button" id="botaoCopiarBoleto">Copiar</button>
               </div>
               <p class="nota-pix">Vence em 3 dias. O pedido é enviado após a confirmação do pagamento. Boleto simulado, site de teste.</p>
@@ -872,7 +880,7 @@
                   </div>
                 </div>
 
-                <div class="chat-fluxo" id="chatFluxo" role="log" aria-live="polite"></div>
+                <div class="chat-fluxo" id="chatFluxo" role="log" aria-live="polite" aria-label="Conversa com o atendimento"></div>
 
                 <form class="chat-entrada" id="chatForm" autocomplete="off">
                   <input type="text" id="chatCampo" placeholder="Digite sua mensagem..." maxlength="300" aria-label="Mensagem">
@@ -1044,6 +1052,116 @@
       </section>
 
 
+
+      <!-- SOBRE A AURORA -->
+      <section class="pagina" id="sobre">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">NOSSA HISTÓRIA</span>
+          <h1>Sobre a Aurora</h1>
+          <p>Histórias que iluminam novos caminhos.</p>
+        </div>
+
+        <div class="texto-institucional">
+          <p>
+            A Livraria Aurora nasceu de uma ideia simples: todo livro pode abrir uma nova
+            porta. Reunimos clássicos, lançamentos e achados para quem ama ler, e também
+            para quem está começando agora a descobrir o prazer de uma boa história.
+          </p>
+          <p>
+            Acreditamos que comprar um livro deve ser tão agradável quanto lê-lo: catálogo
+            organizado, preço justo, entrega acompanhada passo a passo e um atendimento que
+            conversa de verdade com você.
+          </p>
+        </div>
+
+        <div class="cards-politica cards-valores">
+          <div>
+            <strong>📖 Curadoria com carinho</strong>
+            <p>Escolhemos cada título pensando em quem vai ler, de todas as idades e gostos.</p>
+          </div>
+          <div>
+            <strong>🤝 Atendimento próximo</strong>
+            <p>Dúvidas, trocas e devoluções resolvidas sem burocracia e com linguagem clara.</p>
+          </div>
+          <div>
+            <strong>🌱 Incentivo à leitura</strong>
+            <p>Ofertas, cupons e o Clube Aurora para que ler caiba no bolso de todo mundo.</p>
+          </div>
+        </div>
+
+        <div class="acoes-form">
+          <button type="button" class="botao botao-auto" data-secao="livros">Explorar o catálogo</button>
+          <button type="button" class="botao-contorno" data-secao="trabalhe-conosco">Trabalhe conosco</button>
+        </div>
+      </section>
+
+
+      <!-- TRABALHE CONOSCO -->
+      <section class="pagina" id="trabalhe-conosco">
+        <div class="cabecalho-pagina">
+          <span class="mini-titulo">FAÇA PARTE DA AURORA</span>
+          <h1>Trabalhe conosco</h1>
+          <p>Gosta de livros e de gente? Venha construir a Aurora com a gente.</p>
+        </div>
+
+        <div class="cards-politica cards-vagas">
+          <div>
+            <strong>📚 Livreiro(a)</strong>
+            <p>Recomende leituras, cuide da curadoria e encante quem chega à loja.</p>
+          </div>
+          <div>
+            <strong>💬 Atendimento ao cliente</strong>
+            <p>Ajude leitores por chat com pedidos, trocas e dúvidas do dia a dia.</p>
+          </div>
+          <div>
+            <strong>📦 Logística e estoque</strong>
+            <p>Separe, embale e envie cada pedido com cuidado e no prazo.</p>
+          </div>
+          <div>
+            <strong>✍️ Marketing e conteúdo</strong>
+            <p>Conte histórias sobre livros e crie campanhas para o Clube Aurora.</p>
+          </div>
+        </div>
+
+        <div class="bloco-atend bloco-candidatura">
+          <h3>Envie sua candidatura</h3>
+          <p class="descricao-bloco">Preencha os dados abaixo. Nossa equipe entra em contato se houver uma vaga com o seu perfil.</p>
+
+          <form id="formCandidatura" novalidate>
+            <div class="linha-campos">
+              <div class="campo">
+                <label for="candNome">Nome completo</label>
+                <input type="text" id="candNome" placeholder="Seu nome" autocomplete="name">
+              </div>
+              <div class="campo">
+                <label for="candEmail">E-mail</label>
+                <input type="email" id="candEmail" placeholder="seu@email.com" autocomplete="email">
+              </div>
+              <div class="campo">
+                <label for="candVaga">Área de interesse</label>
+                <select id="candVaga">
+                  <option value="Livreiro(a)">Livreiro(a)</option>
+                  <option value="Atendimento ao cliente">Atendimento ao cliente</option>
+                  <option value="Logística e estoque">Logística e estoque</option>
+                  <option value="Marketing e conteúdo">Marketing e conteúdo</option>
+                  <option value="Outra área">Outra área</option>
+                </select>
+              </div>
+              <div class="campo largo">
+                <label for="candMensagem">Fale um pouco sobre você</label>
+                <textarea id="candMensagem" rows="4" placeholder="Experiência, livros favoritos, o que você gostaria de fazer..."></textarea>
+              </div>
+            </div>
+
+            <div class="acoes-form">
+              <button type="submit" class="botao botao-auto">Enviar candidatura</button>
+            </div>
+            <div class="aviso-form" id="avisoCandidatura" role="alert"></div>
+            <p class="nota-seguranca">Este é um site de teste: a candidatura fica salva apenas neste navegador.</p>
+          </form>
+        </div>
+      </section>
+
     </main>
 
 
@@ -1059,9 +1177,8 @@
 
         <div>
           <h3>Institucional</h3>
-          <a href="#">Sobre a Aurora</a>
-          <a href="#">Trabalhe conosco</a>
-          <a href="#">Nossas lojas</a>
+          <a href="#" data-secao="sobre">Sobre a Aurora</a>
+          <a href="#" data-secao="trabalhe-conosco">Trabalhe conosco</a>
         </div>
 
         <div>
@@ -1071,14 +1188,6 @@
           <a href="#" data-vista-atendimento="entrega">Trocas e devoluções</a>
         </div>
 
-        <div>
-          <h3>Redes sociais</h3>
-          <div class="redes-sociais">
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-            <a href="#">Pinterest</a>
-          </div>
-        </div>
       </div>
 
       <div class="rodape-final">
@@ -1088,17 +1197,17 @@
     </footer>
   </div>
 
-  <div class="notificacao" id="notificacao"></div>
+  <div class="notificacao" id="notificacao" role="status" aria-live="polite"></div>
 
   <!-- MODAL DE DETALHES DO LIVRO -->
-  <div class="modal-overlay oculto" id="modalDetalhes">
+  <div class="modal-overlay oculto" id="modalDetalhes" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-detalhes" id="conteudoModalDetalhes"></div>
   </div>
 
   <!-- MODAL DE CANCELAMENTO DE PEDIDO -->
-  <div class="modal-overlay oculto" id="modalCancelamento">
+  <div class="modal-overlay oculto" id="modalCancelamento" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-cancelamento">
-      <button class="fechar-modal" id="fecharModalCancelamento">✕</button>
+      <button class="fechar-modal" aria-label="Fechar" id="fecharModalCancelamento">✕</button>
       <h3>Cancelar pedido <span id="numeroPedidoCancelar"></span></h3>
       <p>Poxa, sentiremos falta dessa venda. Conta pra gente o motivo:</p>
 
@@ -1144,9 +1253,9 @@
   </div>
 
   <!-- MODAL DE DEVOLUÇÃO E REEMBOLSO -->
-  <div class="modal-overlay oculto" id="modalDevolucao">
+  <div class="modal-overlay oculto" id="modalDevolucao" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-cancelamento">
-      <button class="fechar-modal" id="fecharModalDevolucao">✕</button>
+      <button class="fechar-modal" aria-label="Fechar" id="fecharModalDevolucao">✕</button>
       <h3>Devolução e reembolso <span id="numeroPedidoDevolucao"></span></h3>
       <p>Conte pra gente o que houve com o pedido:</p>
 
@@ -1188,23 +1297,23 @@
   </div>
 
   <!-- MODAL DE RASTREIO DO PEDIDO -->
-  <div class="modal-overlay oculto" id="modalRastreio">
+  <div class="modal-overlay oculto" id="modalRastreio" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-detalhes modal-rastreio">
-      <button class="fechar-modal" id="fecharModalRastreio">✕</button>
+      <button class="fechar-modal" aria-label="Fechar" id="fecharModalRastreio">✕</button>
       <div id="conteudoModalRastreio"></div>
     </div>
   </div>
 
   <!-- MODAL DE DETALHES DO PEDIDO -->
-  <div class="modal-overlay oculto" id="modalDetalhesPedido">
+  <div class="modal-overlay oculto" id="modalDetalhesPedido" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-detalhes" id="conteudoModalDetalhesPedido"></div>
   </div>
 
 
   <!-- MODAL: ALTERAR ENDEREÇO DE ENTREGA (CHECKOUT) -->
-  <div class="modal-overlay oculto" id="modalEnderecoCheckout">
+  <div class="modal-overlay oculto" id="modalEnderecoCheckout" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-cancelamento modal-endereco-checkout">
-      <button type="button" class="fechar-modal" id="fecharModalEnderecoCheckout">✕</button>
+      <button type="button" class="fechar-modal" aria-label="Fechar" id="fecharModalEnderecoCheckout">✕</button>
 
       <div id="vistaListaEndereco">
         <h3>Alterar endereço de entrega</h3>
@@ -1285,9 +1394,9 @@
   </div>
 
   <!-- MODAL: PAGAR PEDIDO (PIX / BOLETO) -->
-  <div class="modal-overlay oculto" id="modalPagamentoPedido">
+  <div class="modal-overlay oculto" id="modalPagamentoPedido" role="dialog" aria-modal="true" aria-label="Janela de diálogo">
     <div class="modal-cancelamento modal-pagamento">
-      <button type="button" class="fechar-modal" id="fecharModalPagamento">✕</button>
+      <button type="button" class="fechar-modal" aria-label="Fechar" id="fecharModalPagamento">✕</button>
       <div id="conteudoModalPagamento"></div>
     </div>
   </div>
