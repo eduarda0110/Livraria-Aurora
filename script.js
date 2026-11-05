@@ -25,13 +25,35 @@ let filtroAtual = "todos";
 let termoPesquisaAtual = "";
 let pedidoParaCancelar = null;
 
-let carrinho = JSON.parse(
-  localStorage.getItem("carrinhoAurora")
-) || [];
+/* Carrinho e favoritos ficam guardados POR CONTA (ou "visitante") */
+let donoDados = "visitante";
 
-let favoritos = JSON.parse(
-  localStorage.getItem("favoritosAurora")
-) || [];
+function chaveDados(tipo) {
+  return `${tipo}Aurora_${donoDados}`;
+}
+
+function lerDados(tipo) {
+  try {
+    return JSON.parse(localStorage.getItem(chaveDados(tipo))) || [];
+  } catch (erro) {
+    return [];
+  }
+}
+
+function salvarCarrinho() {
+  localStorage.setItem(chaveDados("carrinho"), JSON.stringify(carrinho));
+}
+
+function salvarFavoritos() {
+  localStorage.setItem(chaveDados("favoritos"), JSON.stringify(favoritos));
+}
+
+// dados antigos eram compartilhados entre contas: descartamos
+localStorage.removeItem("carrinhoAurora");
+localStorage.removeItem("favoritosAurora");
+
+let carrinho = lerDados("carrinho");
+let favoritos = lerDados("favoritos");
 
 let usuarios = JSON.parse(
   localStorage.getItem("usuariosAurora")
@@ -868,6 +890,30 @@ function preencherInformacoesUsuario(usuario) {
   }
 }
 
+/* "Lembrar de mim": marcado = fica salvo; desmarcado = só até fechar o navegador */
+let lembrarSessao = false;
+
+function guardarSessao(usuario) {
+  localStorage.removeItem("usuarioAurora");
+  sessionStorage.removeItem("usuarioAurora");
+
+  (lembrarSessao ? localStorage : sessionStorage).setItem(
+    "usuarioAurora",
+    JSON.stringify(usuario)
+  );
+}
+
+function lerSessao() {
+  try {
+    return (
+      JSON.parse(localStorage.getItem("usuarioAurora")) ||
+      JSON.parse(sessionStorage.getItem("usuarioAurora"))
+    );
+  } catch (erro) {
+    return null;
+  }
+}
+
 function abrirSite(usuario) {
   usuarioLogado = usuarios.find(item => item.id === usuario.id) || usuario;
 
@@ -875,12 +921,85 @@ function abrirSite(usuario) {
   if (!usuarioLogado.cartoes) usuarioLogado.cartoes = [];
   if (!usuarioLogado.pedidos) usuarioLogado.pedidos = [];
 
-  localStorage.setItem(
-    "usuarioAurora",
-    JSON.stringify(usuarioLogado)
-  );
+  guardarSessao(usuarioLogado);
 
   preencherInformacoesUsuario(usuarioLogado);
+
+  // carrinho montado como visitante vai para a conta; o resto é só da conta
+  const carrinhoVisitante = donoDados === "visitante" ? carrinho.slice() : [];
+
+  donoDados = String(usuarioLogado.id);
+  carrinho = lerDados("carrinho");
+  favoritos = lerDados("favoritos");
+
+  carrinhoVisitante.forEach(id => {
+    if (!carrinho.includes(id)) carrinho.push(id);
+  });
+  salvarCarrinho();
+  localStorage.removeItem("carrinhoAurora_visitante");
+
+  telaLogin.classList.add("oculto");
+  siteLoja.classList.remove("oculto");
+  document.body.classList.add("logado");
+
+  carregarLivros();
+  atualizarCarrinho();
+  atualizarFavoritos();
+  iniciarConta();
+
+  // vai para onde a pessoa queria ir antes de entrar (ou para o início)
+  // após entrar ou cadastrar, vai sempre para o início
+  // (única exceção: quem clicou em "Finalizar compra" volta ao carrinho)
+  const destino = destinoAposLogin === "carrinho" ? "carrinho" : "inicio";
+  destinoAposLogin = null;
+  abrirSecao(destino);
+
+  if (destino === "carrinho" && carrinho.length) {
+    irParaCheckout();
+  }
+}
+
+/* ---------- Modo visitante ---------- */
+
+let destinoAposLogin = null;
+
+const SECOES_COM_LOGIN = ["minha-conta", "meus-pedidos"];
+
+function mostrarTelaLogin(modo, destino) {
+  destinoAposLogin = destino || null;
+
+  siteLoja.classList.add("oculto");
+  telaLogin.classList.remove("oculto");
+
+  formulario.reset();
+
+  if (modo === "cadastro") {
+    alternarParaCadastro();
+  } else {
+    alternarParaLogin();
+  }
+
+  window.scrollTo({ top: 0 });
+}
+
+function voltarParaLoja() {
+  destinoAposLogin = null;
+
+  telaLogin.classList.add("oculto");
+  siteLoja.classList.remove("oculto");
+
+  abrirSecao("inicio");
+}
+
+function iniciarComoVisitante() {
+  usuarioLogado = null;
+  donoDados = "visitante";
+  carrinho = lerDados("carrinho");
+  favoritos = lerDados("favoritos");
+  document.body.classList.remove("logado");
+
+  const nomeCabecalho = document.getElementById("nomeUsuarioCabecalho");
+  if (nomeCabecalho) nomeCabecalho.textContent = "Entrar";
 
   telaLogin.classList.add("oculto");
   siteLoja.classList.remove("oculto");
@@ -888,13 +1007,58 @@ function abrirSite(usuario) {
   carregarLivros();
   atualizarCarrinho();
   atualizarFavoritos();
-  iniciarConta();
 
-  // sempre começa na página inicial
   abrirSecao("inicio");
 }
 
+document.getElementById("voltarParaLoja")?.addEventListener("click", function(event) {
+  event.preventDefault();
+  voltarParaLoja();
+});
+
+document.getElementById("botaoCadastroBanner")?.addEventListener("click", function() {
+  mostrarTelaLogin("cadastro", "inicio");
+});
+
+let modoRecuperar = false;
+
+function restaurarCamposPadrao() {
+  modoRecuperar = false;
+
+  document.getElementById("opcoesLogin").classList.remove("oculto");
+  document.getElementById("labelSenha").textContent = "Senha";
+  senhaInput.placeholder = "Digite sua senha";
+  senhaInput.autocomplete = "current-password";
+}
+
+function alternarParaRecuperarSenha() {
+  alternarParaLogin();
+
+  modoRecuperar = true;
+
+  document.getElementById("opcoesLogin").classList.add("oculto");
+  document.getElementById("labelSenha").textContent = "Nova senha";
+  senhaInput.placeholder = "Mínimo de 6 caracteres";
+  senhaInput.autocomplete = "new-password";
+
+  tituloFormulario.textContent = "Recuperar senha";
+  subtituloFormulario.textContent =
+    "Informe seu e-mail e escolha uma nova senha.";
+  botaoFormulario.textContent = "Redefinir senha";
+  textoCadastro.textContent = "Lembrou da senha?";
+  alternarCadastro.textContent = "Voltar ao login";
+
+  esconderMensagem();
+  emailInput.focus();
+}
+
+document.getElementById("linkEsqueci")?.addEventListener("click", function(event) {
+  event.preventDefault();
+  alternarParaRecuperarSenha();
+});
+
 function alternarParaCadastro() {
+  restaurarCamposPadrao();
   modoCadastro = true;
 
   campoNome.classList.remove("oculto");
@@ -916,6 +1080,7 @@ function alternarParaCadastro() {
 }
 
 function alternarParaLogin() {
+  restaurarCamposPadrao();
   modoCadastro = false;
 
   campoNome.classList.add("oculto");
@@ -939,7 +1104,7 @@ function alternarParaLogin() {
 alternarCadastro.addEventListener("click", function(event) {
   event.preventDefault();
 
-  if (modoCadastro) {
+  if (modoRecuperar || modoCadastro) {
     alternarParaLogin();
   } else {
     alternarParaCadastro();
@@ -956,6 +1121,42 @@ formulario.addEventListener("submit", function(event) {
   const senha = senhaInput.value.trim();
 
   esconderMensagem();
+
+  lembrarSessao = document.getElementById("lembrarMim")?.checked || false;
+
+  if (modoRecuperar) {
+    if (!validarEmail(email)) {
+      mostrarMensagem("Digite um e-mail válido.", "erro");
+      return;
+    }
+
+    const contaRecuperar = usuarios.find(usuario => usuario.email === email);
+
+    if (!contaRecuperar) {
+      mostrarMensagem("Não encontramos uma conta com este e-mail.", "erro");
+      return;
+    }
+
+    if (senha.length < 6) {
+      mostrarMensagem("A nova senha precisa ter pelo menos 6 caracteres.", "erro");
+      return;
+    }
+
+    contaRecuperar.senha = senha;
+    localStorage.setItem("usuariosAurora", JSON.stringify(usuarios));
+
+    mostrarMensagem("Senha redefinida! Agora é só entrar.");
+
+    setTimeout(() => {
+      alternarParaLogin();
+      emailInput.value = email;
+      senhaInput.value = "";
+      senhaInput.focus();
+      mostrarMensagem("Senha redefinida! Entre com a nova senha.");
+    }, 1200);
+
+    return;
+  }
 
   if (!validarEmail(email)) {
     mostrarMensagem(
@@ -1274,7 +1475,7 @@ document.getElementById("modalDetalhes").addEventListener("click", function(even
       favoritos.push(id);
     }
 
-    localStorage.setItem("favoritosAurora", JSON.stringify(favoritos));
+    salvarFavoritos();
     atualizarFavoritos();
     abrirDetalhesLivro(id);
   }
@@ -1706,6 +1907,12 @@ let estadoCheckout = { metodoPagamento: "pix", cupom: null, enderecoId: null };
 let ultimoPedidoAPagar = null;
 
 function irParaCheckout() {
+  if (!usuarioLogado) {
+    mostrarNotificacao("Entre ou crie sua conta para finalizar a compra.");
+    mostrarTelaLogin("login", "carrinho");
+    return;
+  }
+
   if (!usuarioLogado.enderecos.length) {
     mostrarNotificacao(
       "Cadastre um endereço de entrega em Minha conta antes de continuar."
@@ -2324,7 +2531,7 @@ document
     salvarUsuario();
 
     carrinho = [];
-    localStorage.setItem("carrinhoAurora", JSON.stringify(carrinho));
+    salvarCarrinho();
     atualizarCarrinho();
 
     document.getElementById("textoConfirmacaoPedido").textContent =
@@ -3158,6 +3365,11 @@ function atualizarFavoritos() {
 }
 
 function abrirSecao(nomeSecao) {
+  if (SECOES_COM_LOGIN.includes(nomeSecao) && !usuarioLogado) {
+    mostrarTelaLogin("login", nomeSecao);
+    return;
+  }
+
   document.querySelectorAll(".pagina").forEach(secao => {
     secao.classList.remove("ativa");
   });
@@ -3217,10 +3429,7 @@ document.addEventListener("click", function(event) {
     if (!carrinho.includes(id)) {
       carrinho.push(id);
 
-      localStorage.setItem(
-        "carrinhoAurora",
-        JSON.stringify(carrinho)
-      );
+      salvarCarrinho();
 
       atualizarCarrinho();
       mostrarNotificacao(
@@ -3242,10 +3451,7 @@ document.addEventListener("click", function(event) {
       item => item !== id
     );
 
-    localStorage.setItem(
-      "carrinhoAurora",
-      JSON.stringify(carrinho)
-    );
+    salvarCarrinho();
 
     atualizarCarrinho();
     mostrarNotificacao(
@@ -3274,10 +3480,7 @@ document.addEventListener("click", function(event) {
       );
     }
 
-    localStorage.setItem(
-      "favoritosAurora",
-      JSON.stringify(favoritos)
-    );
+    salvarFavoritos();
 
     carregarLivros();
     atualizarFavoritos();
@@ -3295,13 +3498,13 @@ document.addEventListener("click", function(event) {
 
   if (event.target.id === "botaoSair") {
     localStorage.removeItem("usuarioAurora");
+    sessionStorage.removeItem("usuarioAurora");
     usuarioLogado = null;
-
-    siteLoja.classList.add("oculto");
-    telaLogin.classList.remove("oculto");
 
     formulario.reset();
     alternarParaLogin();
+
+    iniciarComoVisitante();
 
     mostrarNotificacao(
       "Você saiu da sua conta."
@@ -3329,6 +3532,33 @@ document
   .getElementById("formNewsletter")
   ?.addEventListener("submit", function(event) {
     event.preventDefault();
+
+    const emailNews = document
+      .getElementById("emailNewsletter")
+      .value
+      .trim()
+      .toLowerCase();
+
+    let lista = [];
+
+    try {
+      lista = JSON.parse(localStorage.getItem("newsletterAurora")) || [];
+    } catch (erro) {
+      lista = [];
+    }
+
+    if (!validarEmail(emailNews)) {
+      mostrarNotificacao("Digite um e-mail válido.");
+      return;
+    }
+
+    if (lista.includes(emailNews)) {
+      mostrarNotificacao("Este e-mail já está no Clube Aurora. 😉");
+      return;
+    }
+
+    lista.push(emailNews);
+    localStorage.setItem("newsletterAurora", JSON.stringify(lista));
 
     this.reset();
 
@@ -3363,7 +3593,7 @@ function salvarUsuario() {
   }
 
   localStorage.setItem("usuariosAurora", JSON.stringify(usuarios));
-  localStorage.setItem("usuarioAurora", JSON.stringify(usuarioLogado));
+  guardarSessao(usuarioLogado);
 
   preencherInformacoesUsuario(usuarioLogado);
 }
@@ -3437,7 +3667,8 @@ function iniciarConta() {
 
   ["avisoDados", "avisoSenha"].forEach(limparAviso);
 
-  abrirPainel("dados");
+  // ao entrar em Minha conta, só as abas aparecem; nenhum painel fica aberto
+  fecharPainel();
 }
 
 /* ---------- DADOS PESSOAIS ---------- */
@@ -4620,15 +4851,14 @@ document.addEventListener("click", function(event) {
 });
 
 function carregarSessaoAtiva() {
-  const usuarioAtivo = JSON.parse(
-    localStorage.getItem("usuarioAurora")
-  );
+  const usuarioAtivo = lerSessao();
 
   if (!usuarioAtivo) {
-    telaLogin.classList.remove("oculto");
-    siteLoja.classList.add("oculto");
+    iniciarComoVisitante();
     return;
   }
+
+  lembrarSessao = !!localStorage.getItem("usuarioAurora");
 
   abrirSite(usuarioAtivo);
 }
@@ -4715,7 +4945,7 @@ document.addEventListener("click", function(event) {
     "[data-vista-atendimento], [data-card-atendimento]"
   );
 
-  if (!alvo || !usuarioLogado) return;
+  if (!alvo) return;
 
   event.preventDefault();
 
@@ -4876,7 +5106,21 @@ document
 function renderizarRastreioAtendimento() {
   const area = document.getElementById("rastreioAtendimento");
 
-  if (!area || !usuarioLogado) return;
+  if (!area) return;
+
+  if (!usuarioLogado) {
+    area.innerHTML = `
+      <div class="vazio-bloco">
+        <span>🔒</span>
+        <p>Entre na sua conta para acompanhar seus pedidos.</p>
+        <button type="button" class="botao botao-auto" id="botaoEntrarRastreio">Entrar</button>
+      </div>`;
+
+    document.getElementById("botaoEntrarRastreio")?.addEventListener("click", function() {
+      mostrarTelaLogin("login", "atendimento");
+    });
+    return;
+  }
 
   aplicarExpiracoesPedidos();
 
@@ -5386,9 +5630,9 @@ function mostrarProtocolo() {
 /* ---------- ciclo de vida ---------- */
 
 function prepararChat() {
-  if (!usuarioLogado) return;
+  const idAtual = usuarioLogado ? usuarioLogado.id : null;
 
-  if (!chat.iniciado || chat.usuarioId !== usuarioLogado.id) {
+  if (!chat.iniciado || chat.usuarioId !== idAtual) {
     reiniciarChat();
   }
 }
@@ -6076,3 +6320,137 @@ document
       abrirAtendimento(valor);
     }
   });
+
+
+/* =====================================================
+   TRABALHE CONOSCO: candidatura
+===================================================== */
+
+document.getElementById("formCandidatura")?.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const aviso = document.getElementById("avisoCandidatura");
+  const nome = document.getElementById("candNome").value.trim();
+  const email = document.getElementById("candEmail").value.trim().toLowerCase();
+  const vaga = document.getElementById("candVaga").value;
+  const texto = document.getElementById("candMensagem").value.trim();
+
+  function erro(msg) {
+    aviso.textContent = msg;
+    aviso.className = "aviso-form erro";
+  }
+
+  if (nome.length < 3) return erro("Digite seu nome completo.");
+  if (!validarEmail(email)) return erro("Digite um e-mail válido.");
+  if (texto.length < 10) return erro("Conte um pouco mais sobre você (mínimo de 10 caracteres).");
+
+  let candidaturas = [];
+
+  try {
+    candidaturas = JSON.parse(localStorage.getItem("candidaturasAurora")) || [];
+  } catch (e) {
+    candidaturas = [];
+  }
+
+  candidaturas.push({ nome, email, vaga, texto, data: new Date().toISOString() });
+  localStorage.setItem("candidaturasAurora", JSON.stringify(candidaturas));
+
+  this.reset();
+  aviso.textContent = "";
+  aviso.className = "aviso-form";
+
+  mostrarNotificacao("Candidatura enviada! Obrigado por querer fazer parte da Aurora.");
+});
+
+/* =====================================================
+   ACESSIBILIDADE: rótulos de botões só com ícone,
+   foco nos modais e tecla Esc
+===================================================== */
+
+function rotularBotoesDeIcone(raiz) {
+  (raiz || document).querySelectorAll(".favorito:not([aria-label])").forEach(botao => {
+    const ativo = botao.classList.contains("selecionado");
+    botao.setAttribute("aria-label", ativo ? "Remover dos favoritos" : "Adicionar aos favoritos");
+    botao.setAttribute("aria-pressed", ativo ? "true" : "false");
+  });
+
+  (raiz || document).querySelectorAll(".fechar-modal:not([aria-label])").forEach(botao => {
+    botao.setAttribute("aria-label", "Fechar");
+  });
+
+  (raiz || document).querySelectorAll("button[data-remover]:not([aria-label])").forEach(botao => {
+    botao.setAttribute("aria-label", "Remover do carrinho");
+  });
+
+  (raiz || document).querySelectorAll(".capa-livro[data-detalhes]:not([role])").forEach(capa => {
+    capa.setAttribute("role", "button");
+    capa.setAttribute("tabindex", "0");
+    capa.setAttribute("aria-label", "Ver detalhes do livro");
+  });
+}
+
+rotularBotoesDeIcone();
+
+new MutationObserver(() => rotularBotoesDeIcone()).observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// o aria-label dos favoritos precisa acompanhar o estado
+new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    if (m.target.classList?.contains("favorito")) {
+      const ativo = m.target.classList.contains("selecionado");
+      m.target.setAttribute("aria-label", ativo ? "Remover dos favoritos" : "Adicionar aos favoritos");
+      m.target.setAttribute("aria-pressed", ativo ? "true" : "false");
+    }
+  });
+}).observe(document.body, { attributes: true, attributeFilter: ["class"], subtree: true });
+
+// capa do livro acessível pelo teclado (Enter / Espaço)
+document.addEventListener("keydown", function(event) {
+  const capa = event.target.closest?.(".capa-livro[data-detalhes]");
+
+  if (capa && (event.key === "Enter" || event.key === " ")) {
+    event.preventDefault();
+    capa.click();
+  }
+});
+
+// Esc fecha a janela aberta por cima; o foco volta para onde estava
+let focoAntesDoModal = null;
+
+new MutationObserver(() => {
+  const aberto = [...document.querySelectorAll(".modal-overlay:not(.oculto)")].pop();
+
+  if (aberto && !focoAntesDoModal) {
+    focoAntesDoModal = document.activeElement;
+    const alvo = aberto.querySelector(".fechar-modal, button, input, select, textarea");
+    alvo?.focus();
+  }
+
+  if (!aberto && focoAntesDoModal) {
+    focoAntesDoModal.focus?.();
+    focoAntesDoModal = null;
+  }
+}).observe(document.body, { attributes: true, attributeFilter: ["class"], subtree: true });
+
+document.addEventListener("keydown", function(event) {
+  if (event.key !== "Escape") return;
+
+  const aberto = [...document.querySelectorAll(".modal-overlay:not(.oculto)")].pop();
+
+  if (aberto) {
+    aberto.querySelector(".fechar-modal")?.click();
+  }
+});
+
+// ao trocar de seção, o leitor de tela é levado para o conteúdo novo
+(function() {
+  const original = abrirSecao;
+
+  abrirSecao = function(nome) {
+    original(nome);
+    document.getElementById("conteudoPrincipal")?.focus({ preventScroll: true });
+  };
+})();
