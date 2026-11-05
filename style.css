@@ -876,7 +876,7 @@ a {
   max-width: 1250px;
   margin: auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 45px;
 }
 
@@ -4133,5 +4133,168 @@ a {
   .jornada,
   .faixa-beneficios {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===== MODO VISITANTE ===== */
+
+.voltar-loja {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--marrom);
+  background: var(--dourado);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.voltar-loja:hover {
+  background: var(--branco);
+  transform: translateX(-3px);
+}
+
+.botao-banner-contorno {
+  margin-left: 10px;
+  background: transparent;
+  border: 2px solid currentColor;
+}
+
+body.logado .so-visitante {
+  display: none !important;
+}
+
+
+/* ===== ACESSIBILIDADE ===== */
+
+.pular-conteudo {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 9999;
+  padding: 10px 18px;
+  background: var(--dourado);
+  color: var(--marrom);
+  font-weight: 700;
+  border-radius: 8px;
+  transition: top 0.15s ease;
+}
+
+.pular-conteudo:focus {
+  top: 12px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--laranja);
+  outline-offset: 2px;
+}
+
+#conteudoPrincipal:focus {
+  outline: none;
+}
+
+/* ===== PÁGINAS INSTITUCIONAIS ===== */
+
+.texto-institucional {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.texto-institucional p {
+  color: var(--marrom-claro);
+  font-size: 17px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.cards-valores,
+.cards-vagas {
+  margin-bottom: 30px;
+}
+
+.cards-vagas {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.bloco-candidatura {
+  max-width: 820px;
+}
+
+.bloco-candidatura textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--bege-escuro);
+  border-radius: 10px;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.link-esqueci-ativo {
+  cursor: pointer;
+}
+
+/* ===== LOGIN NO CELULAR ===== */
+
+@media (max-width: 700px) {
+  .tela-login {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+  .apresentacao {
+    min-height: auto;
+    padding: 18px 20px 20px;
+  }
+
+  .apresentacao h1,
+  .apresentacao p {
+    display: none;
+  }
+
+  .voltar-loja {
+    margin-bottom: 14px;
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
+  .logo {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  .login-area {
+    padding: 26px 20px 40px;
+  }
+
+  .login-area h2 {
+    font-size: 26px;
+  }
+
+  .login-area input,
+  .login-area select {
+    font-size: 16px;
+  }
+
+  .opcoes {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .botao {
+    min-height: 48px;
   }
 }
